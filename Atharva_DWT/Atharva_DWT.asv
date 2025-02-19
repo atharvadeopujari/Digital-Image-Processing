@@ -1,0 +1,22 @@
+% Read the image
+img = imread('your_image.jpg');
+
+% Resize the image to 512x512 if it's not already
+img = imresize(img, [512 512]);
+
+% Convert the image to grayscale
+grayImg = rgb2gray(img);
+
+% Perform single-level 2D DWT
+[LL, LH, HL, HH] = dwt2(grayImg, 'db1');
+
+% Display the original and all decomposed images
+figure;
+subplot(3,2,1), imshow(grayImg), title('Original Grayscale Image');
+subplot(3,2,2), imshow(LL, []), title('LL - Approximation');
+subplot(3,2,3), imshow(LH, []), title('LH - Horizontal Detail');
+subplot(3,2,4), imshow(HL, []), title('HL - Vertical Detail');
+subplot(3,2,5), imshow(HH, []), title('HH - Diagonal Detail');
+
+% Add a colorbar to show the intensity scale
+subplot(3,2,6), imagesc(HH), colorbar, axis off, title('HH with Colorbar');
